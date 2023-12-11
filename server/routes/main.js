@@ -2,10 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
-/**
- * GET /
- * HOME
-*/
+
 router.get('', async (req, res) => {
   try {
     const locals = {
@@ -21,8 +18,7 @@ router.get('', async (req, res) => {
     .limit(perPage)
     .exec();
 
-    // Count is deprecated - please use countDocuments
-    // const count = await Post.count();
+   
     const count = await Post.countDocuments({});
 
     const nextPage = parseInt(page) + 1;
@@ -42,26 +38,6 @@ router.get('', async (req, res) => {
 
 });
 
-// router.get('', async (req, res) => {
-//   const locals = {
-//     title: "NodeJs Blog",
-//     description: "Simple Blog created with NodeJs, Express & MongoDb."
-//   }
-
-//   try {
-//     const data = await Post.find();
-//     res.render('index', { locals, data });
-//   } catch (error) {
-//     console.log(error);
-//   }
-
-// });
-
-
-/**
- * GET /
- * Post :id
-*/
 router.get('/post/:id', async (req, res) => {
   try {
     let slug = req.params.id;
